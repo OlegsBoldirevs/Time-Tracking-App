@@ -1,7 +1,7 @@
 # Time-Tracking-App
 Simple Time Tracking App with Ajax
 ## Task:
-Entering the base route of application, should reveal page wher euser can do following actions:
+Entering the base route of application, should reveal page where user can do following actions:
 * See all logs, logged before
 * Have a form to add new time log 
 
