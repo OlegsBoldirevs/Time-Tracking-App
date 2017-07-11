@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+html, body, div, span, h1, h2, fieldset, label, header, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.cf:before, .cf:after {
+    content: " ";
+    /* 1 */
+    display: table;
+    /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.cf {
+    *zoom: 1;
+}
+
+body {
+    color: #404040;
+    background: rgb(245, 245, 245);
+    font-family: 'Roboto', sans-serif;
+}
+
+header h1 {
+    color: #dab068;
+    font-size: 68px;
+    text-align: center;
+    margin: 15px 0;
+    margin-top: 30px;
+}
+
+th {
+    background-color: #dab068;
+    color: white;
+    font-size: 20px;
+}
+
+table, td {
+    border: 1px solid #dab068;
+}
+
+.wrapper {
+    width: 100%
+}
+
+.logs-list {
+    width: 70%;
+    display: inline-block;
+    float: left;
+}
+
+.time-logs {
+    margin: 50px auto;
+    width: 90%;
+    background: rgba(201, 222, 100, 0.4);
+    position: relative;
+    min-height: 150px;
+}
+
+.list-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.list-table tr {
+    border-bottom: 1px solid #437c7e;
+}
+
+.list-table td {
+    padding: 10px 0 0 10px;
+    max-width: 150px;
+    word-wrap: break-word;
+}
+
+.table-head td {
+    font-weight: bold;
+}
+
+.date {
+    font-size: 20px;
+    font-style: italic;
+    color: #de9922;
+}
+
+.logs-submit {
+    display: inline-flex;
+    width: calc(30% - 2px);
+    max-width: 500px;
+}
+
+.logs-submit .submit-form {
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.logs-submit .submit-form div span {
+    margin-right: 10px;
+}
+
+.logs-submit .submit-form div input {
+    height: 100%;
+    padding: 5px;
+}
+
+.submit {
+    text-align: center;
+}
+
+.submit-button {
+    background-color: transparent;
+    color: #dab068;
+    font-size: 24px;
+    margin-top: 10px;
+    width: 100%;
+    border: 2px solid #dab068;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #dab068;
+    color: #fff;
+}
+
+.pagination {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    color: black;
+    cursor: pointer;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #dab068;
+}
+
+.pagination a.active {
+    background-color: #dab068;
+    color: white;
+    border: 1px solid #dab068;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #dab068;
+    color: #fff;
+}
+
+.pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
