@@ -1,9 +1,8 @@
 <?php
 //getting all dates from database
-$query = "SELECT * FROM timelogsapp GROUP BY date(date) ORDER BY date DESC";
+$query = "SELECT * FROM timelogsapp  ORDER BY date DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
-$all_dates = $stmt->fetchAll();
 
 //getting pages
 $count = $stmt->rowCount();
@@ -14,7 +13,7 @@ if (isset($_GET['page'])) {
 }
 
 //getting offset from which to show pages
-$limit = 3;
+$limit = 8;
 $offset = ($page -1) * $limit;
 //counting pages
 $pages = ceil($count / $limit);
@@ -27,25 +26,35 @@ if ($pages > 1) {
     }
 }
 
-// getting all dates from database with limit
-$all_dates_query = "SELECT * FROM timelogsapp GROUP BY date(date) ORDER BY date DESC LIMIT $limit OFFSET $offset";
-$stmt = $con->prepare($all_dates_query);
+$query = "SELECT * FROM timelogsapp GROUP BY date(date) ORDER BY date DESC";
+$stmt = $con->prepare($query);
 $stmt->execute();
-$all_dates = $stmt->fetchAll();
+$dates = $stmt->fetchAll();
 
-function getLogs($con, $all_dates)
+$query = "SELECT * FROM timelogsapp  ORDER BY date DESC LIMIT $limit OFFSET $offset";
+$stmt = $con->prepare($query);
+$stmt->execute();
+$records = $stmt->fetchAll();
+
+function getLogs($con, $dates, $records)
 {
-    foreach ($all_dates as $row) {
-        $this_date = $row['date'];
-        $all_dates = "SELECT * FROM timelogsapp WHERE date(date) = date('$this_date') ORDER BY date DESC"; //getting all logs for current date
-        $stmt = $con->prepare($all_dates);
-        $stmt->execute();
-        $result = $stmt->fetchAll();
-        //generating html table with logs
+    $newArray = [];
+    foreach ($dates as $date) {
+        $tempArray = [];
+        foreach ($records as $record) {
+            if (date('Y-m-d', strtotime($date['date'])) == date('Y-m-d', strtotime($record['date']))) {
+                array_push($tempArray, $record);
+            }
+        }
+        if (count($tempArray) > 0) {
+            array_push($newArray, $tempArray);
+        }
+    }
+    for ($i = 0; $i < count($newArray); $i++) {
         echo '<table class="list-table">';
         echo '<thead>';
         echo '<span class="date">';
-        echo datetime($this_date);
+        echo datetime($newArray[$i][0]['date']);
         echo '</span>';
         echo '<tr>';
         echo '<th>Description</th>';
@@ -54,17 +63,18 @@ function getLogs($con, $all_dates)
         echo '</tr>';
         echo '</thead>';
         echo '<tbody>';
-        foreach ($result as $row) {
+        foreach ($newArray[$i] as $value) {
             echo '<tr>';
-            echo '<td>'.$row['description'].'</td>';
-            echo '<td>'.$row['time'].'</td>';
-            echo '<td>'.date('d.m.Y H:i', strtotime($row['date'])).'</td>';
+            echo '<td>'.$value['description'].'</td>';
+            echo '<td>'.$value['time'].'</td>';
+            echo '<td>'.date('d.m.Y H:i', strtotime($value['date'])).'</td>';
             echo '</tr>';
         }
         echo '</tbody>';
         echo '</table>';
     }
 }
+
 // function to print out date
 function datetime($this_date)
 {
